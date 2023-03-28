@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>延迟测试</title>
+</head>
+<body>
+<h1>Mibook</h1>
+<p>Ping value: <span id="ping"></span> ms</p>
+
+<script>
+  // 发送 HTTP 请求，并计算时间差
+  function ping() {
+    var start = new Date().getTime();
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/ping", true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        var end = new Date().getTime();
+        var pingValue = end - start;
+        document.getElementById("ping").innerHTML = pingValue;
+      }
+    };
+    xhr.send();
+  }
+
+  // 定时发送 ping 请求
+  setInterval(ping, 1000);
+</script>
+</body>
+</html>
